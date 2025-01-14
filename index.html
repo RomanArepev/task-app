@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Заголовок заменен на текущее время Лондона -->
+        <h1 id="london-time"></h1>
+        <div id="current-tasks" class="task-section">
+            <h2>Текущие задачи</h2>
+            <ul id="current-tasks-list"></ul>
+            <input type="text" id="new-task" placeholder="Добавить новую задачу">
+            <button id="add-task">Добавить</button>
+        </div>
+        <div id="later-tasks" class="task-section">
+            <h2>На потом</h2>
+            <ul id="later-tasks-list"></ul>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
