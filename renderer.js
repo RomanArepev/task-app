@@ -79,6 +79,7 @@ updateLondonTime(); // Инициализация сразу
         }
     }
 
+    
     function deleteTask(taskId) {
         fetch(`http://localhost:3000/tasks/${taskId}`, {
             method: 'DELETE',
