@@ -100,11 +100,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Создание кнопки для получения тикетов
     const fetchTicketsButton = document.createElement('button');
-    fetchTicketsButton.textContent = 'Получить тикеты';
+    fetchTicketsButton.textContent = 'Get tickets';
     laterTasksList.parentElement.appendChild(fetchTicketsButton); // Добавляем кнопку в раздел "later tasks"
+
+    // Создание элемента прогресс-бара
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar'; // Добавляем класс для стилизации
+    progressBar.style.width = '0%'; // Начальная ширина
+    laterTasksList.parentElement.appendChild(progressBar); // Добавляем прогресс-бар в раздел "later tasks"
 
     // Функция для получения тикетов из API
     function fetchTickets() {
+        // Показываем прогресс-бар перед началом запроса
+        progressBar.style.width = '0%';
+
         const headers = {
             'Authorization': 'Basic ' + btoa('YZR3zoq1VN8cesmw1lY:Y'), // Basic Auth
         };
@@ -130,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Promise.all(pagePromises)
             .then(results => {
+                // Скрываем прогресс-бар после завершения запроса
+                progressBar.style.width = '100%';
                 console.log('Fetched tickets from all pages:', results); // Отладочное сообщение
                 laterTasksList.innerHTML = ''; // Очистить существующие задачи
 
@@ -141,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const createdAtYear = new Date(ticket.created_at).getFullYear(); // Получаем год создания тикета
                             if (createdAtYear === 2025 && ticket.status === 2) { // Проверка года и статуса
                                 const li = document.createElement('li');
-                                li.textContent = `Ticket ID: ${ticket.id}, Subject: ${ticket.subject}`; // Отображение ID и Subject тикета
+                                li.textContent = `Ticket ID: ${ticket.id}`; // Отображение ID тикета
                                 laterTasksList.appendChild(li);
                             } else {
                                 console.log(`Ticket ID: ${ticket.id} has status: ${ticket.status} or created in year: ${createdAtYear}, not adding to list.`); // Сообщение, если статус не 2 или год не 2025
@@ -153,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .catch(error => {
+                // Скрываем прогресс-бар в случае ошибки
+                progressBar.style.width = '0%';
                 console.error('Error fetching tickets:', error);
                 const li = document.createElement('li');
                 li.textContent = 'Error fetching tickets. Check console for details.';
