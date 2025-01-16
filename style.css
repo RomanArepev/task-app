@@ -23,12 +23,13 @@ ul {
 }
 
 li {
-    background-color: #34495e;
-    padding: 10px;
+    background-color: #2f5579;
+    padding: 5px;
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.9em;
 }
 
 li button {
